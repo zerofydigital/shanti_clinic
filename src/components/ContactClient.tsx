@@ -12,26 +12,26 @@ export default function ContactClient() {
       icon: MapPin,
       title: "Visit us",
       content:
-        "GF-36 , Rhythm Plaza , Amar jawan Circle, Sardar Patel Ring Rd, Nikol, Ahmedabad, Gujarat 380049",
+        "GF-36, Rhythm Plaza, Amar jawan Circle, Sardar Patel Ring Rd, Nikol, Ahmedabad, Gujarat 380049",
       link: null,
     },
     {
       icon: Phone,
       title: "Call us",
-      content: "+91 9173998544",
-      link: "tel:+919173998544",
+      content: "9925120548",
+      link: "tel:9925120548",
     },
     {
       icon: Mail,
       title: "Email us",
-      content: "drbhavyashahdentistry@gmail.com",
-      link: "mailto:drbhavyashahdentistry@gmail.com",
+      content: "shantiamarjavan@gmail.com",
+      link: "mailto:shantiamarjavan@gmail.com",
     },
     {
       icon: Clock,
       title: "Working hours",
       content:
-        "Monday - Saturday: 4:30 PM - 9:00 PM\nSunday: By appointment only",
+        "Monday - Saturday: 10:00 AM - 8:00 PM\nSunday: By appointment only",
       link: null,
     },
   ];
@@ -130,11 +130,11 @@ export default function ContactClient() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Dr. Bhavya Shah's Dental Clinic Location Map"
+                title="Shanti Dental Clinic Location Map"
                 className="w-full h-full"
               ></iframe>
               <a
-                href="https://www.google.com/maps/search/?api=1&query=GF-36%20Rhythm%20Plaza%20Amar%20jawan%20Circle%20Sardar%20Patel%20Ring%20Rd%20Nikol%20Ahmedabad"
+                href="https://www.google.com/maps/search/?api=1&query=GF-36%20Rhythm%20Plaza%20Amar%20jawan%20Circle%20Sardar%20Patel%20Ring%20Rd%20Nikol%20Ahmedabad%20Gujarat%20380049"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-3 rounded-full font-semibold shadow-lg flex items-center gap-2 hover:bg-primary/90 transition-colors active:scale-95"
@@ -165,7 +165,8 @@ export default function ContactClient() {
             </p>
             <button
               onClick={openBookingModal}
-              className="inline-flex items-center justify-center h-14 px-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white font-semibold text-lg rounded-xl transition-all duration-200 active:scale-[0.98] shadow-soft"
+              className="inline-flex items-center justify-center h-14
+               px-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white font-semibold text-lg rounded-xl transition-all duration-200 active:scale-[0.98] shadow-soft"
             >
               Schedule your appointment
             </button>

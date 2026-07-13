@@ -13,8 +13,8 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Dr. Bhavya Shah's Dental Clinic & Implant Centre | Expert Dental Care in Ahmedabad",
-    template: "%s | Dr. Bhavya Shah's Dental Clinic & Implant Centre"
+    default: "Shanti Dental Clinic | Expert Dental Care in Ahmedabad",
+    template: "%s | Shanti Dental Clinic"
   },
   description: "Advanced dental implants, cosmetic dentistry, and smile designing in Ahmedabad. Expert care with modern technology and painless treatments.",
   metadataBase: new URL("https://www.drbhavyashahdentistry.com"),
@@ -22,10 +22,10 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Dr. Bhavya Shah's Dental Clinic & Implant Centre | Expert Dental Care in Ahmedabad",
+    title: "Shanti Dental Clinic | Expert Dental Care in Ahmedabad",
     description: "Advanced dental implants, cosmetic dentistry, and smile designing in Ahmedabad. Expert care with modern technology and painless treatments.",
     url: "https://www.drbhavyashahdentistry.com",
-    siteName: "Dr. Bhavya Shah's Dental Clinic & Implant Centre",
+    siteName: "Shanti Dental Clinic",
     locale: "en_US",
     type: "website",
   },

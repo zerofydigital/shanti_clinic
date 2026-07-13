@@ -1,12 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { User, Phone, Mail, Stethoscope, Calendar, Clock, X, Check } from "lucide-react";
+import { useEffect, useState } from "react";
+import { User, Phone, Mail, Stethoscope, Calendar, Clock, X, Check, RotateCcw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+function generateCaptcha() {
+  return {
+    prompt: "Please confirm you are human",
+    answer: "confirmed",
+  };
 }
 
 export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
@@ -24,6 +31,8 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [captcha, setCaptcha] = useState(() => generateCaptcha());
+  const [captchaSelection, setCaptchaSelection] = useState("");
 
   const treatments = [
     "Dental Implants",
@@ -52,6 +61,14 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     "06:00 PM",
     "07:00 PM",
   ];
+
+  useEffect(() => {
+    if (isOpen) {
+      setCaptcha(generateCaptcha());
+      setCaptchaSelection("");
+      setErrors((prev) => ({ ...prev, captcha: "" }));
+    }
+  }, [isOpen]);
 
   const handleChange = (field: string, value: string) => {
     // For mobile number, enforce digits-only and max 10 chars
@@ -115,9 +132,36 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     next.treatmentRequired = validateField("treatmentRequired", formData.treatmentRequired);
     next.preferredDate = validateField("preferredDate", formData.preferredDate);
     next.preferredTime = validateField("preferredTime", formData.preferredTime);
-    // message optional
+
+    if (!captchaSelection.trim()) {
+      next.captcha = "Please select the correct option";
+    } else if (captchaSelection.trim() !== captcha.answer) {
+      next.captcha = "Selection is incorrect";
+    }
+
     return Object.fromEntries(Object.entries(next).filter(([, v]) => v));
   }
+
+  const submitDirectToFormSubmit = async (email: string, data: Record<string, string>) => {
+    const params = new URLSearchParams();
+    Object.entries(data).forEach(([key, value]) => params.append(key, value));
+    params.append("_subject", `Appointment request from ${data["Full Name"] || "Guest"}`);
+    params.append("_captcha", "false");
+    params.append("_template", "table");
+
+    const response = await fetch(`https://formsubmit.co/${encodeURIComponent(email)}`, {
+      method: "POST",
+      mode: "no-cors",
+      body: params,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+    });
+
+    if (!response.ok && response.type !== "opaque") {
+      throw new Error("Form service responded with an error");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,12 +174,12 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
     }
 
     setLoading(true);
+    setSubmissionError(null);
 
     const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY || "";
     const formSubmitEmail = process.env.NEXT_PUBLIC_FORMSUBMIT_EMAIL || "";
 
     try {
-      // If a Web3Forms access key is configured, submit to the API
       if (accessKey) {
         const response = await fetch("https://api.web3forms.com/submit", {
           method: "POST",
@@ -146,7 +190,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
           body: JSON.stringify({
             access_key: accessKey,
             subject: `New Dental Appointment Request from ${formData.fullName}`,
-            from_name: "Dr. Bhavya Shah's Dentistry Website",
+            from_name: "Shanti Dental Clinic Website",
             ...formData,
           }),
         });
@@ -156,8 +200,6 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
           throw new Error("Web3Forms submission failed");
         }
       } else if (formSubmitEmail) {
-        // Server-side proxy to FormSubmit to avoid redirect/captcha page in browser
-        setSubmissionError(null);
         const postData: Record<string, string> = {
           'Full Name': formData.fullName,
           'Mobile Number': formData.mobileNumber,
@@ -168,46 +210,10 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
           Message: formData.message || '',
         };
 
-        const resp = await fetch('/api/formsubmit', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: formSubmitEmail, data: postData }),
-        });
-
-        // Try to parse JSON safely — the proxy may return an error JSON indicating FormSubmit showed a captcha page
-        let result: any;
-        try {
-          result = await resp.json();
-        } catch (err) {
-          const text = await resp.text();
-          throw new Error('Unexpected non-JSON response from server: ' + (text.slice ? text.slice(0, 200) : String(text)));
-        }
-
-        if (!result.success) {
-          // If FormSubmit returned an interstitial/captcha, surface a friendly message to the user
-          if (result.error === 'formsubmit_interstitial') {
-            setSubmissionError('Submission received but requires additional verification (spam check). Please try again later.');
-            setLoading(false);
-            return;
-          }
-          throw new Error(result.error || 'FormSubmit proxy failed');
-        }
+        await submitDirectToFormSubmit(formSubmitEmail, postData);
+      } else {
+        throw new Error('Email service is not configured. Please set NEXT_PUBLIC_FORMSUBMIT_EMAIL or NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY.');
       }
-
-      // WhatsApp Fallback & Direct message (always pre-fill a link so the patient can double-confirm via WhatsApp)
-      const formattedText = encodeURIComponent(
-        `Hello Doctor, I would like to request a dental appointment:\n\n` +
-          `• *Name:* ${formData.fullName}\n` +
-          `• *Mobile:* ${formData.mobileNumber}\n` +
-          `• *Email:* ${formData.email}\n` +
-          `• *Treatment:* ${formData.treatmentRequired}\n` +
-          `• *Date:* ${formData.preferredDate}\n` +
-          `• *Time:* ${formData.preferredTime}\n` +
-          `• *Message:* ${formData.message || "None"}`
-      );
-
-      // Open WhatsApp in a new tab as a confirmation/fallback
-      window.open(`https://wa.me/919173998544?text=${formattedText}`, "_blank");
 
       setSuccess(true);
       setTimeout(() => {
@@ -220,24 +226,16 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
           preferredTime: "",
           message: "",
         });
+        setCaptchaSelection("");
+        setCaptcha(generateCaptcha());
         setSuccess(false);
         onClose();
-      }, 3000);
+      }, 2500);
     } catch (err) {
       console.error("Submission error:", err);
-      alert("Failed to submit appointment. Opening WhatsApp directly to book...");
-      
-      // Fallback redirect to WhatsApp even if API call fails
-      const formattedTextFallback = encodeURIComponent(
-        `Hello Doctor, I want to book an appointment:\n` +
-        `Name: ${formData.fullName}\n` +
-        `Mobile: ${formData.mobileNumber}\n` +
-        `Treatment: ${formData.treatmentRequired}\n` +
-        `Date: ${formData.preferredDate}\n` +
-        `Time: ${formData.preferredTime}`
-      );
-      window.open(`https://wa.me/919173998544?text=${formattedTextFallback}`, "_blank");
-      onClose();
+      setCaptchaSelection("");
+      setCaptcha(generateCaptcha());
+      setSubmissionError(err instanceof Error ? err.message : 'Unable to submit appointment request right now. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -288,14 +286,14 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                   Appointment Requested
                 </h3>
                 <p className="text-muted-foreground mb-4">
-                  We are redirecting you to WhatsApp to confirm details, and will contact you shortly.
+                  Your appointment request has been submitted successfully. We will contact you shortly.
                 </p>
               </div>
             ) : (
               /* Appointment Form */
               <div className="p-6 sm:p-8">
                 <h2 className="text-2xl font-bold text-foreground mb-2">
-                  Book an appointment
+                  Shanti Dental Clinic
                 </h2>
                 <p className="text-muted-foreground mb-6">
                   Fill in your details and we&apos;ll get back to you soon.
@@ -441,6 +439,48 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
                       rows={3}
                       className="w-full p-4 border border-input rounded-xl text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 resize-none"
                     />
+                  </div>
+
+                  {/* Captcha Challenge */}
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-foreground">
+                      Quick verification
+                    </label>
+                    <div className="rounded-xl border border-input bg-gray-50 p-3">
+                      <div className="mb-3 text-sm font-semibold text-foreground">
+                        {captcha.prompt}
+                      </div>
+                      <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-input bg-white p-3 text-sm text-foreground">
+                        <input
+                          type="checkbox"
+                          checked={captchaSelection === captcha.answer}
+                          onChange={(e) => {
+                            setCaptchaSelection(e.target.checked ? captcha.answer : "");
+                            setErrors((prev) => ({ ...prev, captcha: "" }));
+                          }}
+                          className="mt-0.5 h-4 w-4 rounded border-input text-primary focus:ring-primary"
+                        />
+                        <span>I am human and want to continue.</span>
+                      </label>
+                      <div className="mt-3 flex items-center justify-between gap-3">
+                        <p className="text-xs text-muted-foreground">
+                          Just tap the box to continue.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setCaptcha(generateCaptcha());
+                            setCaptchaSelection("");
+                            setErrors((prev) => ({ ...prev, captcha: "" }));
+                          }}
+                          className="flex h-9 w-9 items-center justify-center rounded-lg border border-input bg-white text-muted-foreground transition hover:text-foreground"
+                          aria-label="Refresh captcha"
+                        >
+                          <RotateCcw className="h-4 w-4" />
+                        </button>
+                      </div>
+                    </div>
+                    {errors.captcha && <p className="mt-1 text-sm text-red-600">{errors.captcha}</p>}
                   </div>
 
                   {/* Submit Button */}

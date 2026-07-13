@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
           {/* Column 1: Clinic Info */}
           <div>
-            <h3 className="text-white font-bold text-lg mb-4">Dr. Bhavya Shah</h3>
+            <h3 className="text-white font-bold text-lg mb-4">Shanti Dental Clinic</h3>
             <p className="text-sm leading-relaxed mb-4">
               Advanced dental care with state-of-the-art technology and personalized treatment plans for your perfect smile.
             </p>
@@ -138,26 +138,26 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                 <p className="text-sm leading-relaxed">
-                  Shop No. 109, Saanvi Nirman Stellar, Safal Parisar Rd, Opp. Bhagwat Bungalows, South Bopal, Ahmedabad, Gujarat 380057
+                  GF-36, Rhythm Plaza, Amar jawan Circle, Sardar Patel Ring Rd, Nikol, Ahmedabad, Gujarat 380049
                 </p>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href="tel:+919173998544" className="text-sm hover:text-white transition-colors">
-                  +91 9173998544
+                <a href="tel:9925120548" className="text-sm hover:text-white transition-colors">
+                  +919925120548
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                <a href="mailto:drbhavyashahdentistry@gmail.com" className="text-sm hover:text-white transition-colors break-all">
-                  drbhavyashahdentistry@gmail.com
+                <a href="mailto:shantiamarjavan@gmail.com" className="text-sm hover:text-white transition-colors break-all">
+                  shantiamarjavan@gmail.com
                 </a>
               </div>
               <div className="flex items-start gap-3 pt-2 border-t border-gray-700">
                 <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                 <div className="text-sm leading-relaxed">
                   <p className="font-semibold text-white">Clinic Timings:</p>
-                  <p>4:30 PM - 9:00 PM</p>
+                  <p>10:00 AM - 8:00 PM</p>
                 </div>
               </div>
             </div>
@@ -167,7 +167,7 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="pt-8 border-t border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-center sm:text-left">
-            © {currentYear} Dr. Bhavya Shah&apos;s Dental Clinic. All rights reserved.
+            © {currentYear} Shanti Dental Clinic. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm">
             <span className="hover:text-white transition-colors cursor-pointer">

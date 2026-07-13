@@ -100,10 +100,10 @@ export default function ServicesClient() {
               className="text-4xl md:text-5xl font-bold text-foreground mb-6 text-balance"
               style={{ letterSpacing: "-0.02em" }}
             >
-              Our dental services
+              Comprehensive dental services
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              Comprehensive care for all your dental needs under one roof, using advanced techniques and equipment.
+              From routine checkups to advanced cosmetic procedures, we offer complete dental care solutions
             </p>
           </motion.div>
         </div>
@@ -112,7 +112,7 @@ export default function ServicesClient() {
       {/* Services Grid */}
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => {
               const Icon = service.icon;
               return (
@@ -155,17 +155,16 @@ export default function ServicesClient() {
       <section className="py-16 bg-muted/30">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Need customized dental guidance?
+            Not sure which service you need?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Schedule an appointment for a dental checkup and let Dr. Bhavya Shah evaluate your requirements.
+            Book a consultation and our expert team will recommend the best treatment plan for your needs
           </p>
           <button
             onClick={openBookingModal}
-            className="inline-flex items-center justify-center h-12 px-6 bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white font-semibold rounded-xl transition-all duration-200 active:scale-[0.98]"
+            className="inline-flex items-center justify-center h-14 px-8 bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white font-semibold rounded-xl transition-all duration-200 active:scale-[0.98]"
           >
-            Request Appointment
-            <CalendarDays className="ml-2 w-5 h-5" />
+            Book consultation
           </button>
         </div>
       </section>
