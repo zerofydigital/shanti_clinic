@@ -18,8 +18,8 @@ export default function ContactClient() {
     {
       icon: Phone,
       title: "Call us",
-      content: "9925120548",
-      link: "tel:9925120548",
+      content: "+919925120548",
+      link: "tel:+919925120548",
     },
     {
       icon: Mail,

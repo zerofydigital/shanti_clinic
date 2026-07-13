@@ -293,7 +293,7 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
               /* Appointment Form */
               <div className="p-6 sm:p-8">
                 <h2 className="text-2xl font-bold text-foreground mb-2">
-                  Shanti Dental Clinic
+                  Book an appointment
                 </h2>
                 <p className="text-muted-foreground mb-6">
                   Fill in your details and we&apos;ll get back to you soon.
