@@ -37,7 +37,7 @@ export default function Navbar() {
       {/* Top Banner */}
       <div className="bg-primary text-primary-foreground py-2 px-4 text-sm font-medium text-center flex items-center justify-center gap-2 z-50 relative">
         <Clock className="w-4 h-4" />
-        <span>Clinic Timings: 10:00 AM - 8:00 PM</span>
+        <span>Clinic Timings: 09:00 AM - 1:30 PM, 05:00 PM - 09:00 PM</span>
       </div>
 
       {/* Main Header */}

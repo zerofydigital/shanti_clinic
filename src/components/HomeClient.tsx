@@ -75,12 +75,12 @@ export default function HomeClient() {
 
   const doctorProfiles = [
     {
-      name: "Dr. Shravan Joshi",
-      role: "Senior Implantologist",
-      image: shravanImage.src,
+      name: "Dr. Bhavya Shah",
+      role: "Chief Dental Surgeon & Implantologist",
+      image: "https://horizons-cdn.hostinger.com/05e7eecf-9fbe-4351-a2ae-45a189dacfb0/96203144828e7bcffc8be1c5a4d4aacf.jpg",
       description:
-        "With 30+ years of experience, Dr. Shravan Joshi has successfully handled 1000+ implant cases and is widely respected for full-mouth rehabilitation and advanced implant care across Ahmedabad.",
-      highlights: ["30+ years of experience", "1000+ implant cases", "Full-mouth rehabilitation expertise"],
+        "Dr. Bhavya Shah has worked with many reputed hospitals in East Ahmedabad and is now available in Nikol for evening sessions. He has successfully completed 100+ full mouth crown rehabilitation cases and has extensive experience in Single Sitting RCT, Dental Implants, Crowns, Bridges, and advanced restorative treatments.",
+      highlights: ["12+ Years Experience", "100+ Full Mouth Cases", "Expert Specialist Team"],
     },
     {
       name: "Dr. Drashti Shah",
@@ -171,8 +171,8 @@ export default function HomeClient() {
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-3xl transform translate-x-4 translate-y-4" />
                 <img
-                  src="https://horizons-cdn.hostinger.com/05e7eecf-9fbe-4351-a2ae-45a189dacfb0/96203144828e7bcffc8be1c5a4d4aacf.jpg"
-                  alt="Dr. Bhavya Shah"
+                  src={shravanImage.src}
+                  alt="Dr. Shravan Joshi"
                   className="relative rounded-3xl shadow-soft-lg w-full object-cover aspect-[4/5]"
                 />
               </div>
@@ -187,28 +187,26 @@ export default function HomeClient() {
               className="lg:col-span-7"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-                Meet Dr. Bhavya Shah
+                Meet Dr. Shravan Joshi
               </h2>
               <p className="text-primary font-medium text-lg mb-6">
-                Chief Dental Surgeon & Implantologist
+                Senior Implantologist
               </p>
               <div className="space-y-4 text-muted-foreground leading-relaxed text-lg">
                 <p>
-                  Dr. Bhavya Shah has worked with many reputed hospitals in East Ahmedabad and is now available in Nikol for evening sessions.
-                </p>
-                <p>
-                  He has successfully completed{" "}
+                  With{" "}
                   <span className="text-primary font-semibold">
-                    100+ full mouth crown rehabilitation cases
-                  </span>{" "}
-                  and has extensive experience in{" "}
-                  <span className="text-primary font-semibold">
-                    Single Sitting RCT, Dental Implants, Crowns, Bridges, and advanced restorative treatments
+                    30+ years of experience
                   </span>
-                  .
-                </p>
-                <p>
-                  He is supported by a highly skilled team of specialists, including an experienced Pediatric Dentist, Oral Surgeon, Orthodontist, and Implantologist, ensuring precise, comprehensive, and high-quality dental care for every patient.
+                  , Dr. Shravan Joshi has successfully handled{" "}
+                  <span className="text-primary font-semibold">
+                    1000+ implant cases
+                  </span>{" "}
+                  and is widely respected for{" "}
+                  <span className="text-primary font-semibold">
+                    full-mouth rehabilitation and advanced implant care
+                  </span>{" "}
+                  across Ahmedabad.
                 </p>
               </div>
 
@@ -216,12 +214,12 @@ export default function HomeClient() {
               <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
                 <div className="flex items-center gap-2 text-foreground font-medium">
                   <Sparkles className="w-5 h-5 text-accent" />
-                  <span>12+ Years Experience</span>
+                  <span>30+ Years Experience</span>
                 </div>
                 <div className="hidden sm:block w-1.5 h-1.5 rounded-full bg-border" />
                 <div className="flex items-center gap-2 text-foreground font-medium">
-                  <Users className="w-5 h-5 text-accent" />
-                  <span>Expert Specialist Team</span>
+                  <Award className="w-5 h-5 text-accent" />
+                  <span>1000+ Implant Cases</span>
                 </div>
               </div>
             </motion.div>
