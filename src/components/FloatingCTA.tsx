@@ -10,7 +10,7 @@ interface FloatingCTAProps {
 export default function FloatingCTA({ onBookAppointment }: FloatingCTAProps) {
   const openWhatsApp = () => {
     const text = encodeURIComponent("Hello Doctor, I want to book an appointment.");
-    window.open(`https://wa.me/919173998544?text=${text}`, "_blank");
+    window.open(`https://wa.me/919925120548?text=${text}`, "_blank");
   };
 
   return (
@@ -20,7 +20,7 @@ export default function FloatingCTA({ onBookAppointment }: FloatingCTAProps) {
         <div className="grid grid-cols-3 gap-2 p-2">
           {/* Call CTA */}
           <a
-            href="tel:+919173998544"
+            href="tel:+919925120548"
             className="flex flex-col items-center justify-center h-14 rounded-xl bg-primary text-white font-semibold transition-all duration-200 active:scale-95"
           >
             <Phone className="w-5 h-5 mb-1" />
