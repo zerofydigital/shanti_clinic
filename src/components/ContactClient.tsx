@@ -31,7 +31,7 @@ export default function ContactClient() {
       icon: Clock,
       title: "Working hours",
       content:
-        "Monday - Saturday: 10:00 AM - 8:00 PM\nSunday: By appointment only",
+        "Monday - Saturday:\n09:00 AM - 01:30 PM\n05:00 PM - 09:00 PM\nSunday: By appointment only",
       link: null,
     },
   ];

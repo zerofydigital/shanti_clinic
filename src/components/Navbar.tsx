@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Clock, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logoImage from "@/assets/images/logo.jpeg";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +56,7 @@ export default function Navbar() {
             {/* Logo and Clinic Brand */}
             <Link href="/" className="flex items-center gap-3 group">
               <img
-                src="https://horizons-cdn.hostinger.com/05e7eecf-9fbe-4351-a2ae-45a189dacfb0/3a5e757af5352330b939968f8e760ad1.jpg"
+                src={logoImage.src}
                 alt="Shanti Dental Clinic Logo"
                 className="h-12 w-12 rounded-2xl object-cover shadow-[0_8px_20px_rgba(15,23,42,0.12)] transition-transform duration-300 group-hover:scale-105"
               />

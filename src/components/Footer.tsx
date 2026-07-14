@@ -157,7 +157,8 @@ export default function Footer() {
                 <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                 <div className="text-sm leading-relaxed">
                   <p className="font-semibold text-white">Clinic Timings:</p>
-                  <p>10:00 AM - 8:00 PM</p>
+                  <p>09:00 AM - 01:30 PM,</p>
+                  <p>05:00 PM - 09:00 PM</p>
                 </div>
               </div>
             </div>
