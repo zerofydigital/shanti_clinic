@@ -166,9 +166,20 @@ export default function Footer() {
         </div>
 
         {/* Footer Bottom */}
-        <div className="pt-8 border-t border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-center sm:text-left">
+        <div className="pt-8 border-t border-gray-700 flex flex-col md:flex-row items-center justify-between gap-4 text-sm">
+          <p className="text-center md:text-left">
             © {currentYear} Shanti Dental Clinic. All rights reserved.
+          </p>
+          <p className="text-center text-gray-400">
+            Designed & Developed by{" "}
+            <a
+              href="https://www.linkedin.com/company/zerofydigital"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-primary hover:text-white transition-colors"
+            >
+              Zerofy Digital
+            </a>
           </p>
           <div className="flex gap-6 text-sm">
             <span className="hover:text-white transition-colors cursor-pointer">
